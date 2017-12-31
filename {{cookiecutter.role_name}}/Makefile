@@ -116,13 +116,14 @@ venv: requirements.txt
 	fi;\
 	test -d venv || virtualenv --python=$$PYTHON2 venv;\
 	pip install -r requirements.txt;\
+	pip install -r requirements-dev.txt;\
 	touch venv;\
 
 # [ANSIBLE0013] Use shell only when shell functionality is required
-ansible-lint-bossjones-roles:
+ansible-lint-role:
 	bash -c "find .* -type f -name '*.y*ml' -print0 | xargs -I FILE -t -0 -n1 ansible-lint -x ANSIBLE0006,ANSIBLE0007,ANSIBLE0010,ANSIBLE0013 FILE"
 
-yamllint-bossjones-roles:
+yamllint-role:
 	bash -c "find .* -type f -name '*.y*ml' -print0 | xargs -I FILE -t -0 -n1 yamllint FILE"
 
 ping:
