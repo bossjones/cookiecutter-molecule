@@ -5,5 +5,23 @@
     "description": "your description",
     "company": "your company (optional)",
     "license": ["BSD", "MIT", "GPLv2", "GPLv3", "Apache", "CC-BY"],
-    "min_ansible_version": 1.2
+    "min_ansible_version": 2.3,
+
+    "os_user": "vagrant",
+    "author_name": "admin",
+    "author_email": "admin@gmail.com",
+    "domain_name": "example.com",
+
+    "github_user": "bossjones",
+    "short_description": "fake ansible description",
+
+    "release_date": "2017-09-09",
+    "year": "2017",
+    "version": "0.1.0",
+
+    "full_name": "Malcolm Jones",
+    "email": "bossjones@theblacktonystark.com",
+    "role_name": "bossjones.ipv6",
+    "repo_name": "ansible-role-bossjones-ipv6",
+    "allow_duplicates": "no"
 }
