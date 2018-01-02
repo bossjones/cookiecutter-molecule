@@ -39,8 +39,8 @@ uses_cvs: false
 But Ansible will set booleans in Python convention True / False in templates. To avoid confusion booleans should also be set in variable files with Python convention True / False. When another boolean form in an template is needed Jinja filter should be applied:
 
 ```
-{{ boolean_variable | lower }}
-{{ boolean_variable | upper }}
+boolean_variable | lower
+boolean_variable | upper
 ```
 
 ## Conditionals and Return Status
