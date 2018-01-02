@@ -48,9 +48,6 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 bootstrap-molecule-default:
 	molecule init scenario --role-name $(current_dir) --scenario-name default
 
-ci:
-	molecule test
-
 # NOTE: make this into a bash alias (pretty-yaml)
 pretty-yaml:
 	python -m pyaml /path/to/some/file.yaml
@@ -101,6 +98,17 @@ ci:
 
 bootstrap: venv
 
+travis: bootstrap venv ci
+
+travis-osx: bootstrap venv-osx ci
+
+upgrade-setuptools:
+	pip install --ignore-installed --pre "https://github.com/pradyunsg/pip/archive/hotfix/9.0.2.zip#egg=pip" \
+    && pip install --upgrade setuptools==36.0.1 wheel==0.29.0
+
+which-pip:
+	which pip
+
 # enter virtualenv so we can use Ansible
 activate:
 	. venv/bin/activate
@@ -110,7 +118,7 @@ venv: requirements.txt
 	@if [ -z $$PYTHON2 ]; then\
 	    PY2_MINOR_VER=`python2 --version 2>&1 | cut -d " " -f 2 | cut -d "." -f 2`;\
 	    if (( $$PY2_MINOR_VER < 7 )); then\
-		echo "Couldn't find python2 in \$PATH that is >=3.5";\
+		echo "Couldn't find python2 in \$PATH that is >=2.7";\
 		echo "Please install python2.7 or later or explicity define the python3 executable name with \$PYTHON2";\
 	        echo "Exiting here";\
 	        exit 1;\
@@ -121,6 +129,27 @@ venv: requirements.txt
 	test -d venv || virtualenv --python=$$PYTHON2 venv;\
 	pip install -r requirements.txt;\
 	pip install -r requirements-dev.txt;\
+	touch venv;\
+
+# Compile python modules against homebrew openssl. The homebrew version provides a modern alternative to the one that comes packaged with OS X by default.
+# OS X's older openssl version will fail against certain python modules, namely "cryptography"
+# Taken from this git issue pyca/cryptography#2692
+# The tests are written in Python. Make a virtualenv to handle the dependencies.
+venv-osx: requirements.txt
+	@if [ -z $$PYTHON2 ]; then\
+	    PY2_MINOR_VER=`python2 --version 2>&1 | cut -d " " -f 2 | cut -d "." -f 2`;\
+	    if (( $$PY2_MINOR_VER < 7 )); then\
+		echo "Couldn't find python2 in \$PATH that is >=2.7";\
+		echo "Please install python2.7 or later or explicity define the python3 executable name with \$PYTHON2";\
+	        echo "Exiting here";\
+	        exit 1;\
+	    else\
+		export PYTHON2="python2.$$PY2_MINOR_VER";\
+	    fi;\
+	fi;\
+	test -d venv || virtualenv --python=$$PYTHON2 venv;\
+	ARCHFLAGS="-arch x86_64" LDFLAGS="-L/usr/local/opt/openssl/lib" CFLAGS="-I/usr/local/opt/openssl/include" pip install -r requirements.txt;\
+	ARCHFLAGS="-arch x86_64" LDFLAGS="-L/usr/local/opt/openssl/lib" CFLAGS="-I/usr/local/opt/openssl/include" pip install -r requirements-dev.txt;\
 	touch venv;\
 
 # [ANSIBLE0013] Use shell only when shell functionality is required
