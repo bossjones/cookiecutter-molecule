@@ -1,9 +1,4 @@
-{
-Error: Parse error on line 1:
-{%- if cookiecutter.l
--^
-Expecting 'STRING', '}'
-%- if cookiecutter.license == "MIT" -%}
+{%- if cookiecutter.license == "MIT" -%}
 The MIT License (MIT)
 
 Copyright (c) {{cookiecutter.current_year}} {{cookiecutter.full_legal_name_of_project_owner}}
