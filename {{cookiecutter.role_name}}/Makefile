@@ -23,23 +23,27 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 
 # TODO: Modify this command if you want to use cookiecutter to create something from scratch again
 # cookiecutter-init:
-# 	cookiecutter --output-dir=./ansible-role-bossjones-ipv6 --no-input gh:retr0h/cookiecutter-molecule \
-#                         full_name="Malcolm Jones" \
-#                         email="bossjones@theblacktonystark.com" \
-#                         role_name="bossjones.ipv6" \
-#                         github_user="bossjones" \
-#                         repo_name="ansible-role-bossjones-ipv6" \
-#                         short_description="ansible role to install bossjones ipv6. Only works on fedora 24 currently" \
-#                         release_date="2017-09-09" \
-#                         year="2017" \
-#                         version="0.1.0" \
-#                         min_ansible_version="2.3.2.0" \
-#                         allow_duplicates="no" \
-#                         scenario_name="default" \
-#                         author="Malcolm Jones" \
-#                         description="ansible role to install bossjones ipv6. Only works on fedora 24 currently" \
-#                         company="Tony Dark Labs" \
-#                         license="Apache"
+# cookiecutter --output-dir=/Users/user/dev/bossjones/boss-ansible-role-ansible/ \
+# gh:bossjones/cookiecutter-molecule \
+# role_name="bossjones.ansible" \
+# scenario_name="default" \
+# email="bossjones@theblacktonystark.com" \
+# github_user="bossjones" \
+# description="ansible role to bootstrap ansible. part of the bossjones suite of ansible roles" \
+# description_short="ansible role to bootstrap ansible. part of the bossjones suite of ansible roles" \
+# release_date="2017-12-31" \
+# year="2017" \
+# version="0.1.0" \
+# min_ansible_version="2.3.2.0" \
+# allow_duplicates="no" \
+# license="Apache" \
+# company="Tony Dark Labs" \
+# os_user="vagrant" \
+# author_name="Malcolm Jones" \
+# author="Malcolm Jones" \
+# author_email="bossjones@theblacktonystark.com" \
+# repo_name="boss-ansible-role-ansible" \
+# domain_name="theblacktonystark.com"
 
 bootstrap-molecule-default:
 	molecule init scenario --role-name $(current_dir) --scenario-name default
