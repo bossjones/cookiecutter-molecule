@@ -15,6 +15,7 @@
     "release_date": "2017-09-09",
     "year": "2017",
     "version": "0.1.0",
+    "repo_name": "boss-ansible-role-fake",
 
     "allow_duplicates": "no"
 }
