@@ -1,7 +1,6 @@
 {
     "role_name": "role_name",
     "scenario_name": "default",
-    "author": "your name",
     "description": "your description",
     "company": "your company (optional)",
     "license": ["BSD", "MIT", "GPLv2", "GPLv3", "Apache", "CC-BY"],
@@ -10,16 +9,12 @@
     "os_user": "vagrant",
     "author_name": "admin",
     "author_email": "admin@gmail.com",
-    "domain_name": "example.com",
 
     "github_user": "bossjones",
-    "short_description": "fake ansible description",
 
     "release_date": "2017-09-09",
     "year": "2017",
     "version": "0.1.0",
 
-    "full_name": "Fake Name",
-    "email": "root@fakeurl.com",
     "allow_duplicates": "no"
 }

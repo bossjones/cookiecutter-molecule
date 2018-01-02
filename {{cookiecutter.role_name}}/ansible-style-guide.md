@@ -1,4 +1,5 @@
 _draft_
+{% raw -%}
 # Ansible Style Guide
 
 ## General
@@ -39,8 +40,8 @@ uses_cvs: false
 But Ansible will set booleans in Python convention True / False in templates. To avoid confusion booleans should also be set in variable files with Python convention True / False. When another boolean form in an template is needed Jinja filter should be applied:
 
 ```
-boolean_variable | lower
-boolean_variable | upper
+{{ boolean_variable | lower }}
+{{ boolean_variable | upper }}
 ```
 
 ## Conditionals and Return Status
@@ -166,3 +167,4 @@ For templates or files that are secure use first_available_file, example:
 [Ansible documentation YAML Syntax](http://docs.ansible.com/ansible/YAMLSyntax.html)
 [openshift Ansible Styleguide](https://github.com/openshift/openshift-ansible/blob/master/docs/style_guide.adoc)
 [Open edX Ansible Styleguide](https://openedx.atlassian.net/wiki/display/OpenOPS/Ansible+Code+Conventions)
+{%- endraw %}
