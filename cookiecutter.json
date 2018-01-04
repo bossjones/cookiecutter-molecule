@@ -7,6 +7,7 @@
     "min_ansible_version": 2.3,
 
     "os_user": "vagrant",
+    "run_ansible_as_root": "no",
     "author_name": "admin",
     "author_email": "admin@gmail.com",
 

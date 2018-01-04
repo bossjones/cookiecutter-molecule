@@ -99,3 +99,48 @@ def test_systcl_settings(host, f):
 #     assert 3 == len(re.findall(r'member [\d\w]+ is healthy', out))
 #     assert 'cluster is healthy' in out
 ```
+
+
+# Full test list for molecule
+
+```
+# NOTE: Full install process
+  # create_sequence:
+  #   - create
+  #   - prepare
+  # check_sequence:
+  #   - destroy
+  #   - create
+  #   - prepare
+  #   - converge
+  #   - check
+  #   - destroy
+  # converge_sequence:
+  #   - create
+  #   - prepare
+  #   - converge
+  # destroy_sequence:
+  #   - destroy
+  # test_sequence:
+  #   - lint
+  #   - destroy
+  #   - dependency
+  #   - syntax
+  #   - create
+  #   - prepare
+  #   - converge
+  #   - idempotence
+  #   - side_effect
+  #   - verify
+  #   - destroy
+  # test_sequence:
+  #   - destroy
+  #   - syntax
+  #   - create
+  #   - prepare
+  #   - converge
+  #   - lint
+  #   - side_effect
+  #   - verify
+  #   - destroy
+```

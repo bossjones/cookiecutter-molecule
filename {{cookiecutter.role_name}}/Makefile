@@ -43,7 +43,8 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 # author="Malcolm Jones" \
 # author_email="bossjones@theblacktonystark.com" \
 # repo_name="boss-ansible-role-ansible" \
-# domain_name="theblacktonystark.com"
+# domain_name="theblacktonystark.com" \
+# run_ansible_as_root="no"
 
 bootstrap-molecule-default:
 	molecule init scenario --role-name $(current_dir) --scenario-name default
@@ -96,6 +97,9 @@ install-test-deps:
 ci:
 	molecule test
 
+test:
+	molecule test --destroy=always
+
 bootstrap: venv
 
 travis: bootstrap venv ci
@@ -119,7 +123,7 @@ venv: requirements.txt
 	    PY2_MINOR_VER=`python2 --version 2>&1 | cut -d " " -f 2 | cut -d "." -f 2`;\
 	    if (( $$PY2_MINOR_VER < 7 )); then\
 		echo "Couldn't find python2 in \$PATH that is >=2.7";\
-		echo "Please install python2.7 or later or explicity define the python3 executable name with \$PYTHON2";\
+		echo "Please install python2.7 or later or explicity define the python2 executable name with \$PYTHON2";\
 	        echo "Exiting here";\
 	        exit 1;\
 	    else\

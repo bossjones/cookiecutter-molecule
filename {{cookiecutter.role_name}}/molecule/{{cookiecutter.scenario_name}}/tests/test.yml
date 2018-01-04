@@ -1,5 +1,14 @@
 ---
 - hosts: all
+  {%- if cookiecutter.run_ansible_as_root == "yes" -%}
   remote_user: root
+  {%- endif -%}
   roles:
-    - ansible-role-sosreport
+    - role: {{ cookiecutter.repo_name }}
+      {%- if cookiecutter.run_ansible_as_root == "yes" -%}
+      bossjones__user: root
+      bossjones__group: root
+      {%- elif cookiecutter.run_ansible_as_root == "no" -%}
+      bossjones__user: {{ cookiecutter.os_user }}
+      bossjones__group: {{ cookiecutter.os_user }}
+      {%- endif -%}
