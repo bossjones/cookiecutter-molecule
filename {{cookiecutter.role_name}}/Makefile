@@ -86,6 +86,9 @@ serverspec-install:
 download-roles:
 	ansible-galaxy install -r install_roles.txt --roles-path roles/ -vvv
 
+destroy:
+	molecule destroy
+
 install-cidr-brew:
 	pip install cidr-brewer
 
