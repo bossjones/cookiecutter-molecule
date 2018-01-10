@@ -12,3 +12,4 @@
       bossjones__user: {{ cookiecutter.os_user }}
       bossjones__group: {{ cookiecutter.os_user }}
 {%- endif %}
+
