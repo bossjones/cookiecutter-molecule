@@ -104,7 +104,11 @@ bootstrap: venv
 
 travis: bootstrap venv ci
 
-travis-osx: venv-osx ci
+travis-osx:
+	$(MAKE) venv-osx
+	$(MAKE) upgrade-setuptools
+	$(MAKE) venv-osx
+	$(MAKE) ci
 
 # OSX Order of operations, make travis-osx; . venv/bin/activate; make upgrade-setuptools; make travis-osx;
 
