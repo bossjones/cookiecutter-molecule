@@ -23,6 +23,20 @@ platforms:
   #   # init: /usr/lib/systemd/systemd
   #   groups:
   #     - fedora
+  # TODO: USE THESES
+  # SOURCE: https://zapier.com/engineering/ansible-molecule/
+  #   - name: centos7
+  #   image: retr0h/centos7-systemd-ansible
+  #   image_version: latest
+  #   privileged: True
+  # - name: consul-ubuntu-16.04
+  #   image: solita/ubuntu-systemd
+  #   image_version: latest
+  #   privileged: True
+  # - name: consul-ubuntu-14.04
+  #   image: ubuntu-upstart
+  #   image_version: latest
+  #   privileged: True
 provisioner:
   name: ansible
   lint:
