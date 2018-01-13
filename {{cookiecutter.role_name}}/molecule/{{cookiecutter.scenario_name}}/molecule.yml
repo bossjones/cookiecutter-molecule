@@ -15,6 +15,13 @@ platforms:
     image: solita/ubuntu-systemd
     image_version: latest
     privileged: True
+    groups:
+        - servers
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: /sbin/init
   # - name: fedora-01
   #   image: bossjones/fedora24-systemd-ansible:latest
   #   privileged: True
