@@ -1,11 +1,8 @@
 ---
 default_context:
-  role_name: "boss-ansible-role-bash_it"
   scenario_name: "default"
   email: "bossjones@theblacktonystark.com"
   github_user: "bossjones"
-  description: "The boss-ansible-role-bash_it role can be used to setup bash_it from scratch. Part of the bossjones suite of ansible roles"
-  description_short: "Ansible bash_it role. Part of the bossjones suite of ansible roles"
   release_date: "2018-02-12"
   year: "2018"
   version: "0.1.0"
@@ -17,12 +14,6 @@ default_context:
   author_name: "Malcolm Jones"
   author: "Malcolm Jones"
   author_email: "bossjones@theblacktonystark.com"
-  repo_name: "boss-ansible-role-bash_it"
   domain_name: "theblacktonystark.com"
-  run_ansible_as_root: "no"
-  role_galaxy_name: "bossjones.bash_it"
-  use_gilt: "yes"
-  use_delegated: "yes"
-  docker_container_flavor: "xenial"
 cookiecutters_dir: "~/.cookiecutters/"
 
