@@ -2,7 +2,9 @@
 
 SHELL=/bin/bash
 
-username := bossjones
+username                  := bossjones
+test_container_name       := ubuntu-trusty
+TEST_IMAGE_NAME           := $(username)/$(test_container_name)
 
 # verify that certain variables have been defined off the bat
 check_defined = \
@@ -22,17 +24,15 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 # .PHONY: all dockerfile docker-compose test test-build lint clean pristine run run-single run-cluster build release-manager release-manager-snapshot push
 
 # TODO: Modify this command if you want to use cookiecutter to create something from scratch again
-# cookiecutter-init:
-# cookiecutter --output-dir=/Users/user/dev/bossjones/boss-ansible-role-ansible/ \
-# gh:bossjones/cookiecutter-molecule \
-# role_name="bossjones.ansible" \
+# cookiecutter -f --output-dir=/Users/malcolm/dev/bossjones/bossjones-playbook-suite/ gh:bossjones/cookiecutter-molecule \
+# role_name="boss-ansible-role-nvm" \
 # scenario_name="default" \
 # email="bossjones@theblacktonystark.com" \
 # github_user="bossjones" \
-# description="ansible role to bootstrap ansible. part of the bossjones suite of ansible roles" \
-# description_short="ansible role to bootstrap ansible. part of the bossjones suite of ansible roles" \
-# release_date="2017-12-31" \
-# year="2017" \
+# description="The boss-ansible-role-nvm role can be used to setup nvm from scratch. Part of the bossjones suite of ansible roles" \
+# description_short="Ansible nvm role. Part of the bossjones suite of ansible roles" \
+# release_date="2018-01-16" \
+# year="2018" \
 # version="0.1.0" \
 # min_ansible_version="2.3.2.0" \
 # allow_duplicates="no" \
@@ -42,9 +42,18 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 # author_name="Malcolm Jones" \
 # author="Malcolm Jones" \
 # author_email="bossjones@theblacktonystark.com" \
-# repo_name="boss-ansible-role-ansible" \
+# repo_name="boss-ansible-role-nvm" \
 # domain_name="theblacktonystark.com" \
-# run_ansible_as_root="no"
+# run_ansible_as_root="no" \
+# role_galaxy_name="bossjones.nvm" \
+# use_gilt="yes" \
+# use_delegated="no"
+# docker_container_flavor="xenial"
+
+# hub init
+# hub add . && hub commit -m "It begins."
+# hub create -d "Ansible nvm role. Part of the bossjones suite of ansible roles" bossjones/boss-ansible-role-nvm
+# hub push origin master
 
 bootstrap-molecule-default:
 	molecule init scenario --role-name $(current_dir) --scenario-name default
@@ -105,13 +114,93 @@ test:
 
 bootstrap: venv
 
+{%- if cookiecutter.use_delegated == "yes" %}
+travis:
+	$(MAKE) bootstrap
+	$(MAKE) venv
+	$(MAKE) docker_clean
+	$(MAKE) docker_build_ubuntu
+	$(MAKE) start_delegated_docker
+	$(MAKE) ci
+	$(MAKE) docker_clean
+{% elif cookiecutter.use_delegated == "no" %}
 travis: bootstrap venv ci
+{%- endif %}
 
+.PHONY: docker_build_ubuntu
+docker_build_ubuntu: ## Builds SD Ubuntu docker container
+	@docker build -t $(TEST_IMAGE_NAME):latest -f molecule/default/Dockerfile molecule/default
+
+start_delegated_docker:
+	docker run \
+	-d \
+	--privileged=true \
+	--cap-add=SYS_ADMIN \
+	-v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+	--name {{ cookiecutter.repo_name }}-{{ cookiecutter.docker_container_flavor }} \
+	--hostname {{ cookiecutter.repo_name }}-{{ cookiecutter.docker_container_flavor }} \
+	-it $(TEST_IMAGE_NAME):latest sleep infinity & wait
+
+stop_delegated_docker:
+	$(MAKE) docker_clean
+	$(MAKE) docker_clean
+
+# SOURCE: https://github.com/lispmeister/rpi-python3/blob/534ee5ab592f0ab0cdd04a202ca492846ab12601/Makefile
+exited := $(shell docker ps -a -q -f status=exited)
+kill   := $(shell docker ps | grep ubuntu-trusty | awk '{print $$1}')
+# untagged := $(shell (docker images | grep "^<none>" | awk -F " " '{print $$3}'))
+# dangling := $(shell docker images -f "dangling=true" -q)
+# tag := $(shell docker images | grep "$(DOCKER_IMAGE_NAME)" | grep "$(DOCKER_IMAGE_VERSION)" |awk -F " " '{print $$3}')
+# latest := $(shell docker images | grep "$(DOCKER_IMAGE_NAME)" | grep "latest" | awk -F " " '{print $$3}')
+
+# clean: ## Clean old Docker images
+# ifneq ($(strip $(latest)),)
+# 	@echo "Removing latest $(latest) image"
+# 	docker rmi "$(DOCKER_IMAGE_NAME):latest"
+# endif
+# ifneq ($(strip $(tag)),)
+# 	@echo "Removing tag $(tag) image"
+# 	docker rmi "$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_VERSION)"
+# endif
+# ifneq ($(strip $(exited)),)
+# 	@echo "Cleaning exited containers: $(exited)"
+# 	docker rm -v $(exited)
+# endif
+# ifneq ($(strip $(dangling)),)
+# 	@echo "Cleaning dangling images: $(dangling)"
+# 	docker rmi $(dangling)
+# endif
+# 	@echo 'Done cleaning.'
+
+
+docker_clean:
+ifneq ($(strip $(kill)),)
+	@echo "Killing containers: $(kill)"
+	docker kill $(kill)
+endif
+ifneq ($(strip $(exited)),)
+	@echo "Cleaning exited containers: $(exited)"
+	docker rm -v $(exited)
+endif
+
+
+{%- if cookiecutter.use_delegated == "yes" %}
+travis-osx:
+	$(MAKE) venv-osx
+	$(MAKE) upgrade-setuptools
+	$(MAKE) venv-osx
+	$(MAKE) docker_clean
+	$(MAKE) docker_build_ubuntu
+	$(MAKE) start_delegated_docker
+	$(MAKE) ci
+	$(MAKE) docker_clean
+{% elif cookiecutter.use_delegated == "no" %}
 travis-osx:
 	$(MAKE) venv-osx
 	$(MAKE) upgrade-setuptools
 	$(MAKE) venv-osx
 	$(MAKE) ci
+{%- endif %}
 
 # OSX Order of operations, make travis-osx; . venv/bin/activate; make upgrade-setuptools; make travis-osx;
 

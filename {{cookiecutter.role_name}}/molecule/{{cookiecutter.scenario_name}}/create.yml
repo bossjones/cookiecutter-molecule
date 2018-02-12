@@ -11,6 +11,7 @@
     molecule_scenario_directory: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}"
     molecule_yml: "{{ lookup('file', molecule_file) | from_yaml }}"
   tasks:
+{%- if cookiecutter.use_delegated == "no" %}
     - name: Create Dockerfiles from image names
       template:
         src: "{{ molecule_scenario_directory }}/Dockerfile.j2"
@@ -26,7 +27,7 @@
         force: "{{ item.item.force | default(True) }}"
       with_items: "{{ platforms.results }}"
       when: platforms.changed
-
+{%- endif %}
     - name: Create molecule instance(s)
       docker_container:
         name: "{{ item.name }}"
@@ -34,8 +35,10 @@
         image: "molecule_local/{{ item.image }}"
         state: started
         recreate: False
+{%- if cookiecutter.use_delegated == "no" %}
         log_driver: syslog
         command: "{{ item.command | default('sleep infinity') }}"
+{%- endif %}
         privileged: "{{ item.privileged | default(omit) }}"
         volumes: "{{ item.volumes | default(omit) }}"
         capabilities: "{{ item.capabilities | default(omit) }}"
