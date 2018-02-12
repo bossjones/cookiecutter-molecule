@@ -53,12 +53,14 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 
 # TODO: Modify this command if you want to use cookiecutter to create something from scratch again
 # cookiecutter -f --no-input --output-dir=/Users/malcolm/dev/bossjones/bossjones-playbook-suite/ --config-file /Users/malcolm/dev/bossjones/cookiecutter-molecule/cookiecutter-custom-config.yaml gh:bossjones/cookiecutter-molecule \
-# role_name="boss-ansible-role-nvm" \
-# role_galaxy_name="bossjones.nvm" \
-# run_ansible_as_root="no" \
+# role_name="boss-ansible-role-apt" \
+# role_galaxy_name="bossjones.apt" \
+# run_ansible_as_root="yes" \
 # use_gilt="yes" \
 # use_delegated="no" \
-# docker_container_flavor="trusty"
+# docker_container_flavor="trusty" \
+# description="The boss-ansible-role-apt role can be used to setup apt from scratch. Part of the bossjones suite of ansible roles" \
+# description_short: "Ansible apt role. Part of the bossjones suite of ansible roles"
 
 # hub init
 # hub add . && hub commit -m "It begins."
