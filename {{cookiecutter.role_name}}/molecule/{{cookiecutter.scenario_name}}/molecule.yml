@@ -1,11 +1,16 @@
+{% if cookiecutter.use_gilt == "yes" %}
+{% raw %}
 ---
-{%- if cookiecutter.use_gilt == "yes" %}
 dependency:
   name: gilt
 # delegate example: https://github.com/freedomofpress/securedrop/blob/30257872db2ccad24141ff24269ff2f959a519fd/molecule/builder/create.yml
-{%- endif %}
+{% endraw %}
+{% elif cookiecutter.use_gilt == "no" %}
+---
+{% endif %}
 
-{%- if cookiecutter.use_delegated == "yes" %}
+{% if cookiecutter.use_delegated == "yes" %}
+{% raw %}
 driver:
   name: delegated
   options:
@@ -13,15 +18,19 @@ driver:
     login_cmd_template: 'docker exec --user vagrant --tty -ti {instance} env TERM=xterm bash'
     ansible_connection_options:
       ansible_connection: docker
-{%- endif %}
-dependency:
-  name: galaxy
+{% endraw %}
+{% elif cookiecutter.use_delegated == "no" %}
+{% raw %}
 driver:
   name: docker
+{% endraw %}
+{% endif %}
+dependency:
+  name: galaxy
 lint:
   name: yamllint
   enabled: False
-{%- if cookiecutter.use_delegated == "yes" %}
+{% if cookiecutter.use_delegated == "yes" %}
 platforms:
   # source: https://blog.opsfactory.rocks/testing-ansible-roles-with-molecule-97ceca46736a
   # source: https://github.com/solita/docker-systemd
@@ -66,9 +75,9 @@ platforms:
   #   image: ubuntu-upstart
   #   image_version: latest
   #   privileged: True
-{%- endif %}
+{% endif %}
 
-{%- if cookiecutter.use_delegated == "yes" %}
+{% if cookiecutter.use_delegated == "yes" %}
 provisioner:
   name: ansible
   playbooks:
@@ -79,7 +88,7 @@ provisioner:
 {% elif cookiecutter.use_delegated == "no" %}
 provisioner:
   name: ansible
-{%- endif %}
+{% endif %}
   lint:
     name: ansible-lint
     enabled: False
@@ -95,9 +104,9 @@ verifier:
     name: flake8
     enabled: False
 
-{%- if cookiecutter.use_delegated == "yes" %}
+{% if cookiecutter.use_delegated == "yes" %}
 scenario:
-  name: {{ cookiecutter.scenario_name }} 
+  name: {{ cookiecutter.scenario_name }}
   test_sequence:
     - destroy
     - dependency
@@ -118,5 +127,6 @@ scenario:
     - side_effect
     - verify
     - destroy
-{%- endif %}
+{% endif %}
+
 
