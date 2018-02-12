@@ -19,5 +19,9 @@
     "version": "0.1.0",
     "repo_name": "boss-ansible-role-fake",
 
-    "allow_duplicates": "no"
+    "allow_duplicates": "no",
+
+    "use_gilt": "no",
+    "use_delegated": "no",
+    "docker_container_flavor": "xenial"
 }

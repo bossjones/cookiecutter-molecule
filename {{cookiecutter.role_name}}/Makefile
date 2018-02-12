@@ -47,7 +47,7 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 # run_ansible_as_root="no" \
 # role_galaxy_name="bossjones.nvm" \
 # use_gilt="yes" \
-# use_delegated="no"
+# use_delegated="no" \
 # docker_container_flavor="xenial"
 
 # hub init
