@@ -50,6 +50,16 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 # use_delegated="no" \
 # docker_container_flavor="xenial"
 
+
+# TODO: Modify this command if you want to use cookiecutter to create something from scratch again
+# cookiecutter -f --no-input --output-dir=/Users/malcolm/dev/bossjones/bossjones-playbook-suite/ --config-file /Users/malcolm/dev/bossjones/cookiecutter-molecule/cookiecutter-custom-config.yaml gh:bossjones/cookiecutter-molecule \
+# role_name="boss-ansible-role-nvm" \
+# role_galaxy_name="bossjones.nvm" \
+# run_ansible_as_root="no" \
+# use_gilt="yes" \
+# use_delegated="no" \
+# docker_container_flavor="trusty"
+
 # hub init
 # hub add . && hub commit -m "It begins."
 # hub create -d "Ansible nvm role. Part of the bossjones suite of ansible roles" bossjones/boss-ansible-role-nvm
