@@ -60,7 +60,7 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 # use_delegated="no" \
 # docker_container_flavor="trusty" \
 # description="The boss-ansible-role-apt role can be used to setup apt from scratch. Part of the bossjones suite of ansible roles" \
-# description_short: "Ansible apt role. Part of the bossjones suite of ansible roles"
+# description_short="Ansible apt role. Part of the bossjones suite of ansible roles"
 
 # hub init
 # hub add . && hub commit -m "It begins."
