@@ -86,6 +86,8 @@ provisioner:
 {% elif cookiecutter.use_delegated == "no" %}
 provisioner:
   name: ansible
+  options:
+    vvv: True
 {% endif %}
   lint:
     name: ansible-lint
