@@ -51,21 +51,21 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 # docker_container_flavor="xenial"
 
 
-# TODO: Modify this command if you want to use cookiecutter to create something from scratch again
-# cookiecutter -f --no-input --output-dir=/Users/malcolm/dev/bossjones/bossjones-playbook-suite/ --config-file /Users/malcolm/dev/bossjones/cookiecutter-molecule/cookiecutter-custom-config.yaml gh:bossjones/cookiecutter-molecule \
-# role_name="boss-ansible-role-apt" \
-# repo_name="boss-ansible-role-apt" \
-# role_galaxy_name="bossjones.apt" \
+# # TODO: Modify this command if you want to use cookiecutter to create something from scratch again
+# cookiecutter -f --output-dir=/Users/malcolm/dev/bossjones/bossjones-playbook-suite/ --config-file /Users/malcolm/dev/bossjones/cookiecutter-molecule/cookiecutter-custom-config.yaml gh:bossjones/cookiecutter-molecule \
+# role_name="boss-ansible-role-sysctl" \
+# repo_name="boss-ansible-role-sysctl" \
+# role_galaxy_name="bossjones.sysctl" \
 # run_ansible_as_root="yes" \
 # use_gilt="yes" \
 # use_delegated="no" \
 # docker_container_flavor="trusty" \
-# description="The boss-ansible-role-apt role can be used to setup apt from scratch. Part of the bossjones suite of ansible roles" \
-# description_short="Ansible apt role. Part of the bossjones suite of ansible roles"
+# description="The boss-ansible-role-sysctl role can be used to setup sysctl from scratch. Part of the bossjones suite of ansible roles" \
+# description_short="Ansible sysctl role. Part of the bossjones suite of ansible roles"
 
 # hub init
 # hub add . && hub commit -m "It begins."
-# hub create -d "Ansible nvm role. Part of the bossjones suite of ansible roles" bossjones/boss-ansible-role-nvm
+# hub create -d "Ansible sysctl role. Part of the bossjones suite of ansible roles" bossjones/boss-ansible-role-sysctl
 # hub push origin master
 
 bootstrap-molecule-default:
