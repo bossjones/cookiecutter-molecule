@@ -1,7 +1,17 @@
 ---
 - name: Converge
   hosts: all
+{%- if cookiecutter.run_ansible_as_root == "yes" %}
+  become: yes
+  become_method: sudo
+{%- endif %}
+  environment:
+    SHELL: /bin/bash
   roles:
+    - role: boss-ansible-role-core
+    - role: boss-ansible-role-fact
+    - role: boss-ansible-role-environment
+
     - role: {{ cookiecutter.repo_name }}
 {%- if cookiecutter.run_ansible_as_root == "yes" %}
       bossjones__user: root

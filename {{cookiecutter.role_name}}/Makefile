@@ -54,6 +54,7 @@ current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
 # TODO: Modify this command if you want to use cookiecutter to create something from scratch again
 # cookiecutter -f --no-input --output-dir=/Users/malcolm/dev/bossjones/bossjones-playbook-suite/ --config-file /Users/malcolm/dev/bossjones/cookiecutter-molecule/cookiecutter-custom-config.yaml gh:bossjones/cookiecutter-molecule \
 # role_name="boss-ansible-role-apt" \
+# repo_name="boss-ansible-role-apt" \
 # role_galaxy_name="bossjones.apt" \
 # run_ansible_as_root="yes" \
 # use_gilt="yes" \

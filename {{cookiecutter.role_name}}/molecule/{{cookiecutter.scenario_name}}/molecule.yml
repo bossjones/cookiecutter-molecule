@@ -3,7 +3,6 @@
 ---
 dependency:
   name: gilt
-# delegate example: https://github.com/freedomofpress/securedrop/blob/30257872db2ccad24141ff24269ff2f959a519fd/molecule/builder/create.yml
 {% endraw %}
 {% elif cookiecutter.use_gilt == "no" %}
 ---
@@ -11,6 +10,7 @@ dependency:
 
 {% if cookiecutter.use_delegated == "yes" %}
 {% raw %}
+# delegate example: https://github.com/freedomofpress/securedrop/blob/30257872db2ccad24141ff24269ff2f959a519fd/molecule/builder/create.yml
 driver:
   name: delegated
   options:
@@ -25,8 +25,6 @@ driver:
   name: docker
 {% endraw %}
 {% endif %}
-dependency:
-  name: galaxy
 lint:
   name: yamllint
   enabled: False
@@ -119,6 +117,7 @@ scenario:
   name: {{ cookiecutter.scenario_name }}
   test_sequence:
     - destroy
+    - dependency
     - syntax
     - create
     - prepare
